@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/', 'humanResourceController@index')->name('index');
+Route::get('/posts', 'humanResourceController@create')->name('post');
