@@ -32,7 +32,7 @@ class Authenticate extends Middleware
                 break;
             
             default:
-                $this->$login = 'login';
+                $this->login = 'login';
                 break;
         }
 

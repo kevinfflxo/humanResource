@@ -35,5 +35,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');;
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-    Route::get('/index', 'AdminPagesController@index')->name('admin.index');
+    Route::get('/', 'AdminPagesController@index')->name('admin.index');
+});
+
+Route::prefix('user')->group(function () {
+	Route::get('/', 'PagesController@index')->name('user.index');
+	Route::get('/userLogout', 'Auth\LoginController@userLogout')->name('user.logout');
 });
