@@ -11,9 +11,23 @@
 |
 */
 
-Route::get('/welcome', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'humanResourceController@index')->name('index');
+
+/*
+|--------------------------------------------------------------------------
+| laravel Auth route
+|--------------------------------------------------------------------------
+*/
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+/*
+|--------------------------------------------------------------------------
+| Kevin auth route
+|--------------------------------------------------------------------------
+*/
+Route::get('/index', 'humanResourceController@index')->name('index');
 Route::get('/posts', 'humanResourceController@create')->name('post');
