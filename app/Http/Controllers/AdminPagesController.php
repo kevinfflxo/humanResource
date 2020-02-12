@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class humanResourceController extends Controller
+class AdminPagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,7 @@ class humanResourceController extends Controller
      */
     public function index()
     {
-        return view('index');
+        return view('admin_pages/index');
     }
 
     /**
@@ -23,7 +28,7 @@ class humanResourceController extends Controller
      */
     public function create()
     {
-        return view('create');
+        //
     }
 
     /**

@@ -22,12 +22,18 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 /*
 |--------------------------------------------------------------------------
 | Kevin auth route
 |--------------------------------------------------------------------------
 */
-Route::get('/index', 'humanResourceController@index')->name('index');
-Route::get('/posts', 'humanResourceController@create')->name('post');
+/*Route::get('/index', 'humanResourceController@index')->name('index');
+Route::get('/posts', 'humanResourceController@create')->name('post');*/
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');;
+    Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::get('/index', 'AdminPagesController@index')->name('admin.index');
+});
