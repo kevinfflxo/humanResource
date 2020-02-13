@@ -1,10 +1,39 @@
-@extends('_main')
+@extends('layouts.admin')
 
-<!-- head -->
-@section('title', '查詢')
+@section('content')
+	<div class="row">
+		<div class="offset-md-2 col-md-8">
+			<h1>All Profiles</h1>
+		</div>
+	</div>
 
+	<div class="row">
+		<div class="offset-md-2 col-md-8">
+			<table class="table">
+				<thead>
+				    <tr>
+				      	<th scope="col">name</th>
+				      	<th scope="col">sex</th>
+				      	<th scope="col">phone</th>
+				      	<th scope="col">email</th>
+				      	<th scope="col">on_board</th>
+				      	<th></th>
+				      	<th></th>
+				    </tr>
+			  	</thead>
+			 	@foreach($profiles as $pv)
+			 		<tr>
+				      	<td>{{ $pv->name }}</td>     	
+				      	<td>
+				      		<?php echo $pv->sex == 1 ? "男" : "女"; ?>
+				      	</td>
+					    <td>{{ $pv->phone }}</td>
+					    <td>{{ $pv->email }}</td>
+					    <td>{{ $pv->on_board }}</td>
+				    </tr>
+			 	@endforeach
 
-<!-- content -->
-<div class="content">
-	
-</div>
+			</table>
+		</div>
+	</div>
+@stop
