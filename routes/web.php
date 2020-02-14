@@ -56,7 +56,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminPagesController@index')->name('admin.index');
     Route::get('/posts', 'AdminPagesController@create')->name('admin.create');
     Route::post('/posts', 'AdminPagesController@store')->name('admin.store');
-    Route::get('/{id}', 'AdminPagesController@single')->name('admin.single');
+    Route::get('/{id}', 'AdminPagesController@show')->name('admin.show');
+    Route::get('/{edit}/edit', 'AdminPagesController@edit')->name('admin.edit');
+    Route::put('/{edit}/update', 'AdminPagesController@update')->name('admin.update');
+    Route::get('/destroy/{id}', 'AdminPagesController@destroy')->name('admin.destroy');
 });
 
 Route::prefix('user')->group(function () {

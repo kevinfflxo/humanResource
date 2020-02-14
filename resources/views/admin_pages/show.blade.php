@@ -66,10 +66,10 @@
 						<hr>
 						<div class="row">
 							<div class="col-md-6">
-								<a href="#" class="btn btn-outline-primary btn-block">Edit</a>
+								<a href="{{ route('admin.edit', $profile->id) }}" class="btn btn-outline-primary btn-block">Edit</a>
 							</div>
 							<div class="col-md-6">
-								<a href="#" class="btn btn-outline-danger btn-block">Delete</a>
+								<a href="{{ route('admin.destroy', $profile->id) }}" class="btn btn-outline-danger btn-block">Delete</a>
 							</div>
 						</div>
 						<div class="row" style="margin-top: 15px;">

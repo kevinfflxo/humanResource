@@ -21,8 +21,8 @@
 			</div>
 
 			<div class="row">
-			    <label for="birthday" class="col-md-4 col-form-label">Birthday</label>
-			    <label for="identity_card_number" class="col-md-4 offset-md-2 col-form-label">Identity Card Number</label>
+			    <label for="birthday" class="col-md-4 col-form-label">Date of Birth</label>
+			    <label for="identity_card_number" class="col-md-4 offset-md-2 col-form-label">ID No.</label>
 			</div>
 			<div class="form-group row">
 				<input type="date" class="col-md-4 form-control" name="birthday"/>
@@ -31,7 +31,7 @@
 			
 			<div class="row">
 			    <label for="sex" class="col-md-4 col-form-label">Sex</label>
-			    <label for="married" class="col-md-4 offset-md-2 col-form-label">Married</label>
+			    <label for="married" class="col-md-4 offset-md-2 col-form-label">Marital Status</label>
 			</div>
 			<div class="form-group row">
 				<div class="col-md-4">
