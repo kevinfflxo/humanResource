@@ -46,7 +46,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
-    Route::get('password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+    Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
     /*
     |----------------------------------------------
@@ -54,8 +54,9 @@ Route::prefix('admin')->group(function () {
     |----------------------------------------------
     */
     Route::get('/', 'AdminPagesController@index')->name('admin.index');
-    Route::get('posts', 'AdminPagesController@create')->name('admin.create');
-    Route::post('posts', 'AdminPagesController@store')->name('admin.store');
+    Route::get('/posts', 'AdminPagesController@create')->name('admin.create');
+    Route::post('/posts', 'AdminPagesController@store')->name('admin.store');
+    Route::get('/{id}', 'AdminPagesController@single')->name('admin.single');
 });
 
 Route::prefix('user')->group(function () {

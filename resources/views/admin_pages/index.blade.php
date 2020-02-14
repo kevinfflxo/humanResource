@@ -30,6 +30,7 @@
 					    <td>{{ $pv->phone }}</td>
 					    <td>{{ $pv->email }}</td>
 					    <td>{{ $pv->on_board }}</td>
+					    <td><a href="{{ route('admin.single', $pv->id) }}" class="btn btn-outline-primary">View</a></td>
 				    </tr>
 			 	@endforeach
 

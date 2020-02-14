@@ -13,25 +13,25 @@
 			@csrf
 			<div class="row">
 			    <label for="name" class="col-md-4 col-form-label">Name</label>
-			    <label for="phone" class="col-md-4 offset-md-1 col-form-label">Phone</label>
+			    <label for="phone" class="col-md-4 offset-md-2 col-form-label">Phone</label>
 			</div>
 			<div class="form-group row">
 				<input type="text" class="col-md-4 form-control" placeholder="Ex:王小明" name="name"/>
-				<input type="text" class="col-md-4 offset-md-1 form-control" placeholder="Ex:0912345678" name="phone" />
+				<input type="text" class="col-md-4 offset-md-2 form-control" placeholder="Ex:0912345678" name="phone" />
 			</div>
 
 			<div class="row">
 			    <label for="birthday" class="col-md-4 col-form-label">Birthday</label>
-			    <label for="identity_card_number" class="col-md-4 offset-md-1 col-form-label">Identity Card Number</label>
+			    <label for="identity_card_number" class="col-md-4 offset-md-2 col-form-label">Identity Card Number</label>
 			</div>
 			<div class="form-group row">
 				<input type="date" class="col-md-4 form-control" name="birthday"/>
-				<input type="text" class="col-md-4 form-control offset-md-1" placeholder="Ex:A123456789" name="identity_card_number" />
+				<input type="text" class="col-md-4 form-control offset-md-2" placeholder="Ex:A123456789" name="identity_card_number" />
 			</div>
 			
 			<div class="row">
 			    <label for="sex" class="col-md-4 col-form-label">Sex</label>
-			    <label for="married" class="col-md-4 offset-md-1 col-form-label">Married</label>
+			    <label for="married" class="col-md-4 offset-md-2 col-form-label">Married</label>
 			</div>
 			<div class="form-group row">
 				<div class="col-md-4">
@@ -44,7 +44,7 @@
 					  <label class="form-check-label" for="sex">女</label>
 					</div>
 				</div>
-				<div class="col-md-4 offset-md-1">
+				<div class="col-md-4 offset-md-2">
 					<div class="form-check form-check-inline">
 					  <input class="form-check-input" type="radio" name="married" value="1">
 					  <label class="form-check-label" for="married">已婚</label>
@@ -58,7 +58,7 @@
 
 			<div class="row">
 			    <label for="image" class="col-md-4 col-form-label">Photo</label>
-			    <label for="email" class="col-md-4 offset-md-1 col-form-label">E-mail</label>
+			    <label for="email" class="col-md-4 offset-md-2 col-form-label">E-mail</label>
 			</div>
 			<div class="form-group row">
 				<div class="custom-file col-md-4">
@@ -66,16 +66,16 @@
 				  <label class="custom-file-label" for="customFile">Choose file</label>
 				</div>
 
-				<input type="text" class="col-md-4 form-control offset-md-1" placeholder='Ex:name@example.com' name="email" />
+				<input type="text" class="col-md-4 form-control offset-md-2" placeholder='Ex:name@example.com' name="email" />
 			</div>
 
 			<div class="row">
 			    <label for="address" class="col-md-4 col-form-label">Address</label>
-			    <label for="on_board" class="col-md-4 offset-md-1 col-form-label">On Board</label>
+			    <label for="on_board" class="col-md-4 offset-md-2 col-form-label">On Board</label>
 			</div>
 			<div class="form-group row">
 				<input type="text" class="col-md-4 form-control" placeholder="Ex:臺北市北投區" name="address"/>
-				<input type="date" class="col-md-4 offset-md-1 form-control" name="on_board" />
+				<input type="date" class="col-md-4 offset-md-2 form-control" name="on_board" />
 			</div>
 
 			<div class="row">
@@ -83,7 +83,7 @@
 			</div>
 			<div class="form-group row">
 				<input type="date" class="col-md-4 form-control" name="off_board" />
-				<button tpye="submit" class="btn btn-outline-primary col-md-2 offset-md-3">Submit</button>
+				<button tpye="submit" class="btn btn-outline-primary col-md-2 offset-md-4">Submit</button>
 			</div>
 		</form>
 	</div>
@@ -101,7 +101,3 @@
 	});
 </script>
 @stop
-
-
-
-

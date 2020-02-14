@@ -22,9 +22,15 @@ class AdminPagesController extends Controller
     public function index()
     {
         $profiles = Profile::where('status_delete', 0)
-            ->orderBy('on_board', 'desc')
-            ->get(['id', 'name', 'sex', 'phone', 'email', 'on_board']);
+            ->orderBy('updated_at', 'desc')
+            ->get(['id', 'name', 'sex', 'phone', 'email', 'on_board', 'updated_at']);
         return view('admin_pages.index')->withProfiles($profiles);
+    }
+
+    public function single($id) 
+    {
+        $profile = Profile::find($id);
+        return view('admin_pages.single')->withProfile($profile);
     }
 
     /**
