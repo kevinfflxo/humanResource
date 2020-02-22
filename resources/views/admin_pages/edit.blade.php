@@ -16,7 +16,7 @@
 			    <label for="name" class="col-md-4 col-form-label">Name</label>
 			    <label for="phone" class="col-md-4 offset-md-2 col-form-label">Phone</label>
 			</div>
-			<div class="form-group row">
+			<div class="row">
 				<input type="text" class="col-md-4 form-control" placeholder="Ex:王小明" name="name" value="{{ $profile->name }}"/>
 				<input type="text" class="col-md-4 offset-md-2 form-control" placeholder="Ex:0912345678" name="phone" value="{{ $profile->phone }}"/>
 			</div>
@@ -25,7 +25,7 @@
 			    <label for="birthday" class="col-md-4 col-form-label">Date of Birth</label>
 			    <label for="identity_card_number" class="col-md-4 offset-md-2 col-form-label">ID No.</label>
 			</div>
-			<div class="form-group row">
+			<div class="row">
 				<input type="date" class="col-md-4 form-control" name="birthday" value="{{ $profile->birthday }}"/>
 				<input type="text" class="col-md-4 form-control offset-md-2" placeholder="Ex:A123456789" name="identity_card_number" value="{{ $profile->identity_card_number }}"/>
 			</div>
@@ -34,7 +34,7 @@
 			    <label for="sex" class="col-md-4 col-form-label">Sex</label>
 			    <label for="married" class="col-md-4 offset-md-2 col-form-label">Marital Status</label>
 			</div>
-			<div class="form-group row">
+			<div class="row">
 				<div class="col-md-4">
 					@if ($profile->sex == 1)
 					<div class="form-check form-check-inline">
@@ -83,7 +83,7 @@
 			    <label for="image" class="col-md-4 col-form-label">Photo</label>
 			    <label for="email" class="col-md-4 offset-md-2 col-form-label">E-mail</label>
 			</div>
-			<div class="form-group row">
+			<div class="row">
 				<div class="custom-file col-md-4">
 				  <input type="file" class="custom-file-input" name="image">
 				  <label class="custom-file-label" for="customFile">Choose file</label>
@@ -96,7 +96,7 @@
 			    <label for="address" class="col-md-4 col-form-label">Address</label>
 			    <label for="on_board" class="col-md-4 offset-md-2 col-form-label">On Board</label>
 			</div>
-			<div class="form-group row">
+			<div class="row">
 				<input type="text" class="col-md-4 form-control" placeholder="Ex:臺北市北投區" name="address" value="{{ $profile->address }}"/>
 				<input type="date" class="col-md-4 offset-md-2 form-control" name="on_board" value="{{ $profile->on_board }}"/>
 			</div>
@@ -104,7 +104,7 @@
 			<div class="row">
 				<label for="off_board" class="col-md-4 col-form-label">Off Board</label>
 			</div>
-			<div class="form-group row">
+			<div class="row">
 				<input type="date" class="col-md-4 form-control" name="off_board" value="{{ $profile->off_board }}"/>
 				<button tpye="submit" class="btn btn-outline-primary col-md-2 offset-md-4">Submit</button>
 			</div>
