@@ -80,9 +80,14 @@ class AdminPagesController extends Controller
         $profile->address = $request->address;
         $profile->on_board = $request->on_board;
         $profile->off_board = $request->off_board;
-        $profile->save();
+        try { 
+            $profile->save();
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            $errors = $ex->getMessage(); 
+            return redirect()->route('admin.create')->withErrors($errors);
+        }
 
-        Session::flash('success', 'the blog post was successfully saved！');
+        Session::flash('success', 'The blog post was successfully saved！');
         return redirect()->route('admin.index');
     }   
 
@@ -162,7 +167,7 @@ class AdminPagesController extends Controller
         $profile->off_board = $request->off_board;
         $profile->save();
 
-        Session::flash('success', 'the blog post was successfully updated！');
+        Session::flash('success', 'The blog post was successfully updated！');
         return redirect()->route("admin.show", $id);
     }
 
@@ -178,7 +183,7 @@ class AdminPagesController extends Controller
         $profile->status_delete = 1;
         $profile->save();
 
-        Session::flash('success', 'the blog post was successfully deleted');
+        Session::flash('success', 'The blog post was successfully deleted');
         return redirect()->route('admin.index');
     }
 }
