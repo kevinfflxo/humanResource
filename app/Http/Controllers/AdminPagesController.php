@@ -24,7 +24,7 @@ class AdminPagesController extends Controller
     {
         $profiles = Profile::where('status_delete', 0)
             ->orderBy('updated_at', 'desc')
-            ->get(['id', 'name', 'sex', 'phone', 'email', 'on_board', 'updated_at']);
+            ->get('id');
         return view('admin_pages.index')->withProfiles($profiles);
     }
 

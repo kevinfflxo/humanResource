@@ -7,7 +7,7 @@
 			<div class="col-md-6">
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">Name : </dt>
-				  	<dd class="col-md-6">{{ $profile->name }}</dd>
+				  	<dd class="col-md-6">{{ $profile->user->name }}</dd>
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">Sex : </dt>
@@ -24,7 +24,7 @@
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">E-mail : </dt>
-				  	<dd class="col-md-6">{{ $profile->email }}</dd>
+				  	<dd class="col-md-6">{{ $profile->user->email }}</dd>
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">Address : </dt>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Session;
+use App\Profile;
 
 class RegisterController extends Controller
 {
@@ -84,7 +85,10 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
+        $profile = new Profile;
+        $profile->id = $user->id;
+        $profile->save();
+        
         Session::flash('success', 'The user have been added successfully！');
         return redirect()->route('admin.index');
     }

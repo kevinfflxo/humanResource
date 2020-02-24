@@ -7,7 +7,7 @@
 <!-- Left Side Of Navbar -->
 <ul class="navbar-nav mr-auto">
 	<li class="nav-item"><a class="nav-link" href={{ route('admin.index') }} >index</a></li>
-	<li class="nav-item"><a class="nav-link" href={{ route('admin.create') }} >post</a></li>
+	<li class="nav-item"><a class="nav-link" href={{ route('register') }} >userRegister</a></li>
 </ul>
 
 <!-- Right Side Of Navbar -->
