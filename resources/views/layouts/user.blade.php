@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section("navbar-brand", "-USER")
-
 @section("navbar")
 @if (Auth::guard('web')->check())
 <!-- Left Side Of Navbar -->
