@@ -17,7 +17,7 @@
 			    <label for="phone" class="col-md-4 offset-md-2 col-form-label">Phone</label>
 			</div>
 			<div class="row">
-				<input type="text" class="col-md-4 form-control" placeholder="Ex:王小明" name="name" value="{{ $profile->name }}"/>
+				<input type="text" class="col-md-4 form-control" placeholder="Ex:王小明" name="name" value="{{ $profile->user->name }}"/>
 				<input type="text" class="col-md-4 offset-md-2 form-control" placeholder="Ex:0912345678" name="phone" value="{{ $profile->phone }}"/>
 			</div>
 
@@ -36,28 +36,46 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					@if ($profile->sex == 1)
+					@if ($profile->sex == null)
 					<div class="form-check form-check-inline">
-					  	<input class="form-check-input" type="radio" name="sex" value="1" checked>
+					  	<input class="form-check-input" type="radio" name="sex" value="1" />
 					  	<label class="form-check-label" for="sex">男</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  	<input class="form-check-input" type="radio" name="sex" value="2">
+					  	<input class="form-check-input" type="radio" name="sex" value="2" />
+					  	<label class="form-check-label" for="sex">女</label>
+					</div>
+					@elseif ($profile->sex == 1)
+					<div class="form-check form-check-inline">
+					  	<input class="form-check-input" type="radio" name="sex" value="1" checked />
+					  	<label class="form-check-label" for="sex">男</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  	<input class="form-check-input" type="radio" name="sex" value="2" />
 					  	<label class="form-check-label" for="sex">女</label>
 					</div>
 					@else
 					<div class="form-check form-check-inline">
-					  	<input class="form-check-input" type="radio" name="sex" value="1">
+					  	<input class="form-check-input" type="radio" name="sex" value="1" />
 					  	<label class="form-check-label" for="sex">男</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="sex" value="2" checked>
+					  <input class="form-check-input" type="radio" name="sex" value="2 /" checked>
 					  <label class="form-check-label" for="sex">女</label>
 					</div>
 					@endif
 				</div>
 				<div class="col-md-4 offset-md-2">
-					@if ($profile->married == 1)
+					@if ($profile->married == null)
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="married" value="1" />
+						<label class="form-check-label" for="married">已婚</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="married" value="0" />
+						<label class="form-check-label" for="married">未婚</label>
+					</div>
+					@elseif ($profile->married == 1)
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="married" value="1" checked />
 						<label class="form-check-label" for="married">已婚</label>
@@ -89,7 +107,7 @@
 				  <label class="custom-file-label" for="customFile">Choose file</label>
 				</div>
 
-				<input type="text" class="col-md-4 form-control offset-md-2" placeholder='Ex:name@example.com' name="email" value="{{ $profile->email }}" />
+				<input type="text" class="col-md-4 form-control offset-md-2" placeholder='Ex:name@example.com' name="email" value="{{ $profile->user->email }}" />
 			</div>
 
 			<div class="row">
@@ -106,7 +124,8 @@
 			</div>
 			<div class="row">
 				<input type="date" class="col-md-4 form-control" name="off_board" value="{{ $profile->off_board }}"/>
-				<button tpye="submit" class="btn btn-outline-primary col-md-2 offset-md-4">Submit</button>
+				<a href="{{ route('admin.show', $profile->id) }}" class="btn btn-outline-secondary col-md-1 offset-md-2">Cancel</a>
+				<button tpye="submit" class="btn btn-outline-primary col-md-1 offset-md-2">Submit</button>
 			</div>
 		</form>
 	</div>

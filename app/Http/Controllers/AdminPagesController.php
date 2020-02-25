@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Profile;
+use App\Transaction;
+use App\Request as UpdatedRequest;
+use App\User;
 use Session;
 use Image;
 use Storage;
@@ -22,10 +26,8 @@ class AdminPagesController extends Controller
      */
     public function index()
     {
-        $profiles = Profile::where('status_delete', 0)
-            ->orderBy('updated_at', 'desc')
-            ->get('id');
-        return view('admin_pages.index')->withProfiles($profiles);
+        $users = User::orderBy('updated_at', 'desc')->get(['id', 'name', 'email']);
+        return view('admin_pages.index')->withUsers($users);
     }
 
     /**
@@ -87,7 +89,7 @@ class AdminPagesController extends Controller
             return redirect()->route('admin.create')->withErrors($errors);
         }
 
-        Session::flash('success', 'The blog post was successfully saved！');
+        Session::flash('success', 'The user profile was successfully saved！');
         return redirect()->route('admin.index');
     }   
 
@@ -167,7 +169,7 @@ class AdminPagesController extends Controller
         $profile->off_board = $request->off_board;
         $profile->save();
 
-        Session::flash('success', 'The blog post was successfully updated！');
+        Session::flash('success', 'The user profile was successfully updated！');
         return redirect()->route("admin.show", $id);
     }
 
@@ -179,11 +181,37 @@ class AdminPagesController extends Controller
      */
     public function destroy($id)
     {
-        $profile = Profile::find($id);
-        $profile->status_delete = 1;
-        $profile->save();
+        $request = UpdatedRequest::find($id);
+        if ($request != null) {
+            $errors = "This user has updated request need to be checked！";
+            return redirect()->route("admin.show", $id)->withErrors($errors);
+        }
 
-        Session::flash('success', 'The blog post was successfully deleted');
+        $profile = Profile::find($id);
+        // 記錄
+        $transaction = new Transaction;
+        $transaction->user_id = $profile->id;
+        $transaction->name = $profile->user->name;
+        $transaction->image = $profile->image;
+        $transaction->email = $profile->user->email;
+        $transaction->sex = $profile->sex;
+        $transaction->identity_card_number = $profile->identity_card_number;
+        $transaction->phone = $profile->phone;
+        $transaction->address = $profile->address;
+        $transaction->married = $profile->married;
+        $transaction->birthday = $profile->birthday;
+        $transaction->on_board = $profile->on_board;
+        $transaction->off_board = $profile->off_board;
+        $transaction->status_id = 3;
+        $transaction->admin_id = Auth::guard('admin')->user()->id;
+        $transaction->save();
+        // 刪除profile
+        $profile->delete();
+        // 刪除user
+        $user = User::find($id);
+        $user->delete();
+
+        Session::flash('success', 'The user profile was successfully deleted');
         return redirect()->route('admin.index');
     }
 }

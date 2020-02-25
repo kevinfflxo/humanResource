@@ -17,11 +17,11 @@
 				      	<th></th>
 				    </tr>
 			  	</thead>
-			 	@foreach($profiles as $pv)
+			 	@foreach($users as $user)
 			 		<tr>
-				      	<td>{{ $pv->user->name }}</td>     	
-					    <td>{{ $pv->user->email }}</td>
-					    <td><a href="{{ route('admin.show', $pv->id) }}" class="btn btn-outline-primary">View</a></td>
+				      	<td>{{ $user->name }}</td>     	
+					    <td>{{ $user->email }}</td>
+					    <td><a href="{{ route('admin.show', $user->id) }}" class="btn btn-outline-primary">View</a></td>
 				    </tr>
 			 	@endforeach
 

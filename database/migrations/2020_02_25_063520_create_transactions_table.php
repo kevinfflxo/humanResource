@@ -18,9 +18,9 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('image')->nullable();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->integer('sex')->nullable();
-            $table->string('identity_card_number')->unique()->nullable();
+            $table->string('identity_card_number')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->boolean('married')->nullable();

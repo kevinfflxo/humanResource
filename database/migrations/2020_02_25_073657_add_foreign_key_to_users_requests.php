@@ -29,7 +29,7 @@ class AddForeignKeyToUsersRequests extends Migration
     public function down()
     {
         Schema::table('requests', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
+            $table->dropForeign(['id']);
         });
     }
 }

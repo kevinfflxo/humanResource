@@ -11,7 +11,13 @@
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">Sex : </dt>
-				  	<dd class="col-md-6"><?php echo $profile->sex == 1 ? "男" : "女"; ?>
+				  	<dd class="col-md-6">
+				  		@if ($profile->sex == null)
+				  		@elseif ($profile->married == 1)
+							男
+						@else
+							女
+				  		@endif
 				  	</dd>
 				</dl>
 				<dl class="row">
@@ -32,15 +38,22 @@
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">Marital Status : </dt>
-				  	<dd class="col-md-6"><?php echo $profile->married == 0 ? "未婚" : "已婚"; ?></dd>
+				  	<dd class="col-md-6">
+				  		@if ($profile->married == null)
+				  		@elseif ($profile->married == 0)
+							未婚
+						@else
+							已婚
+				  		@endif
+				  	</dd>
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">Date of Birth : </dt>
-				  	<dd class="col-md-6">{{ date('M j, Y', strtotime($profile->birthday)) }}</dd>
+				  	<dd class="col-md-6"><?php echo empty($profile->birthday)?"":date('M j, Y', strtotime($profile->birthday)) ?></dd>
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">On Board : </dt>
-				  	<dd class="col-md-6">{{ date('M j, Y', strtotime($profile->on_board)) }}</dd>
+				  	<dd class="col-md-6"><?php echo empty($profile->on_board)?"":date('M j, Y', strtotime($profile->on_board)) ?></dd>
 				</dl>
 				<dl class="row">
 				  	<dt class="col-md-6 text-truncate">Off Board : </dt>
@@ -73,7 +86,9 @@
 							</div>
 						</div>
 						<div class="row" style="margin-top: 15px;">
-							<a href="{{ route('admin.index') }}" class="btn btn-light btn-block"><< Show All Profiles</a>
+							<div class="col-md-12">
+								<a href="{{ route('admin.index') }}" class="btn btn-btn btn-outline-secondary btn-block"><< Show All Profiles</a>
+							</div>
 						</div>
 					</div>
 				</div>
