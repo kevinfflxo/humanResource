@@ -54,7 +54,7 @@ class AdminPagesController extends Controller
             'phone' => 'required|numeric|',
             'birthday' => 'required|date',
             'identity_card_number' => 'required|regex:/^[A-Z]{1}[1-2]{1}[0-9]{8}$/|size:10|unique:profiles,identity_card_number',
-            'sex' => 'required|between:0,2',
+            'sex' => 'required|in:1,2',
             'married' => 'required|boolean',
             'image' => 'required|image',
             'email' => 'required|email|max:255',
@@ -89,7 +89,7 @@ class AdminPagesController extends Controller
             return redirect()->route('admin.create')->withErrors($errors);
         }
 
-        Session::flash('success', 'The user profile was successfully saved！');
+        Session::flash('success', "The user's profile has successfully been saved！");
         return redirect()->route('admin.index');
     }   
 
@@ -125,25 +125,43 @@ class AdminPagesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        // validate data
-        $request->validate([
-            'name' => 'required|max:255',
-            'phone' => 'required|numeric|',
-            'birthday' => 'required|date',
-            'identity_card_number' => "required|regex:/^[A-Z]{1}[1-2]{1}[0-9]{8}$/|size:10|unique:profiles,identity_card_number,$id",
-            'sex' => 'required|between:0,2',
-            'married' => 'required|boolean',
-            'image' => 'sometimes|image',
-            'email' => 'required|email|max:255',
-            'address' => 'required|max:255',
-            'on_board' => 'required|date',
-            'off_board' => 'nullable|date',
-        ]);
-
-        // post data
+    {   
         $profile = Profile::find($id);
-        $profile->name = $request->name;
+        $user = User::find($id);
+
+        // validate data
+        if (!isset($profile->image)) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'phone' => 'required|numeric|',
+                'birthday' => 'required|date',
+                'identity_card_number' => "required|regex:/^[A-Z]{1}[1-2]{1}[0-9]{8}$/|size:10|unique:profiles,identity_card_number,$id",
+                'sex' => 'required|in:1,2',
+                'married' => 'required|boolean',
+                'image' => 'required|image',
+                'email' => 'required|email|max:255',
+                'address' => 'required|max:255',
+                'on_board' => 'required|date',
+                'off_board' => 'nullable|date',
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required|max:255',
+                'phone' => 'required|numeric|',
+                'birthday' => 'required|date',
+                'identity_card_number' => "required|regex:/^[A-Z]{1}[1-2]{1}[0-9]{8}$/|size:10|unique:profiles,identity_card_number,$id",
+                'sex' => 'required|in:1,2',
+                'married' => 'required|boolean',
+                'image' => 'sometimes|image',
+                'email' => 'required|email|max:255',
+                'address' => 'required|max:255',
+                'on_board' => 'required|date',
+                'off_board' => 'nullable|date',
+            ]);
+        }
+
+        // update data
+        $user->name = $request->name;
         $profile->phone = $request->phone;
         $profile->birthday = $request->birthday;
         $profile->identity_card_number = $request->identity_card_number;
@@ -163,13 +181,32 @@ class AdminPagesController extends Controller
             Storage::disk('photos')->delete($oldFilename);
         }
         
-        $profile->email = $request->email;
+        $user->email = $request->email;
         $profile->address = $request->address;
         $profile->on_board = $request->on_board;
         $profile->off_board = $request->off_board;
         $profile->save();
+        $user->save();
+        
+        //trait 
+        $transaction = new Transaction;
+        $transaction->name = $profile->user->name;
+        $transaction->phone = $profile->phone;
+        $transaction->birthday = $profile->birthday;
+        $transaction->identity_card_number = $profile->identity_card_number;
+        $transaction->sex = $profile->sex;
+        $transaction->married = $profile->married;
+        $transaction->image = $profile->image;
+        $transaction->email = $profile->user->email;
+        $transaction->address = $profile->address;
+        $transaction->on_board = $profile->on_board;
+        $transaction->off_board = $profile->off_board;
+        $transaction->user_id = $profile->id;
+        $transaction->status_id = 2;
+        $transaction->admin_id = Auth::guard('admin')->user()->id;
+        $transaction->save();
 
-        Session::flash('success', 'The user profile was successfully updated！');
+        Session::flash('success', "The user's profile has successfully been updated！");
         return redirect()->route("admin.show", $id);
     }
 
@@ -183,12 +220,12 @@ class AdminPagesController extends Controller
     {
         $request = UpdatedRequest::find($id);
         if ($request != null) {
-            $errors = "This user has updated request need to be checked！";
+            $errors = "This user has updated the request needing to be checked！";
             return redirect()->route("admin.show", $id)->withErrors($errors);
         }
 
         $profile = Profile::find($id);
-        // 記錄
+        // trait
         $transaction = new Transaction;
         $transaction->user_id = $profile->id;
         $transaction->name = $profile->user->name;
@@ -205,13 +242,13 @@ class AdminPagesController extends Controller
         $transaction->status_id = 3;
         $transaction->admin_id = Auth::guard('admin')->user()->id;
         $transaction->save();
-        // 刪除profile
+        // delete profile data
         $profile->delete();
-        // 刪除user
+        // delete user data
         $user = User::find($id);
         $user->delete();
 
-        Session::flash('success', 'The user profile was successfully deleted');
+        Session::flash('success', "The user's profile has successfully been deleted！");
         return redirect()->route('admin.index');
     }
 }

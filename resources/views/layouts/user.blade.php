@@ -4,6 +4,8 @@
 @if (Auth::guard('web')->check())
 <!-- Left Side Of Navbar -->
 <ul class="navbar-nav mr-auto">
+	<li class="nav-item"><a class="nav-link" href={{ route('user.index') }}>index</a></li>
+	<li class="nav-item"><a class="nav-link" href={{ route('user.show', Auth::guard('web')->user()->id) }}>profile</a></li>
 </ul>
 <!-- Right Side Of Navbar -->
 <ul class="navbar-nav ml-auto">

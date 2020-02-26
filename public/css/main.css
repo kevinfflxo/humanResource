@@ -5,3 +5,10 @@ body {
 .form-spacing-top {
 	margin-top: 20px;
 }
+
+.gray-title {
+	color: #636b6f;
+	font-weight: 200;
+    font-size: 24px;
+    text-align: center;
+}

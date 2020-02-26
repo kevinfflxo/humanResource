@@ -3,13 +3,13 @@
 @section('content')
 <div class="row">
 	<div class="offset-md-2 col-md-8">
-		<h1>Update</h1>
+		<h1>Request</h1>
 	</div>
 </div>
 
 <div class="row">
 	<div class="offset-md-2 col-md-8">
-		<form action="{{ route('admin.update', $profile->id) }}" method="post" enctype="multipart/form-data" >
+		<form action="{{ route('admin.notification.update', $updatedRequest->id) }}" method="post" enctype="multipart/form-data" >
 			@csrf
 			<input name="_method" type="hidden" value="PUT">
 			<div class="row">
@@ -17,8 +17,8 @@
 			    <label for="phone" class="col-md-4 offset-md-2 col-form-label">Phone</label>
 			</div>
 			<div class="row">
-				<input type="text" class="col-md-4 form-control" placeholder="Ex:王小明" name="name" value="{{ $profile->user->name }}"/>
-				<input type="text" class="col-md-4 offset-md-2 form-control" placeholder="Ex:0912345678" name="phone" value="{{ $profile->phone }}"/>
+				<input type="text" class="col-md-4 form-control" placeholder="Ex:王小明" name="name" value="{{ $updatedRequest->name }}"/>
+				<input type="text" class="col-md-4 offset-md-2 form-control" placeholder="Ex:0912345678" name="phone" value="{{ $updatedRequest->phone }}"/>
 			</div>
 
 			<div class="row">
@@ -26,8 +26,8 @@
 			    <label for="identity_card_number" class="col-md-4 offset-md-2 col-form-label">ID No.</label>
 			</div>
 			<div class="row">
-				<input type="date" class="col-md-4 form-control" name="birthday" value="{{ $profile->birthday }}"/>
-				<input type="text" class="col-md-4 form-control offset-md-2" placeholder="Ex:A123456789" name="identity_card_number" value="{{ $profile->identity_card_number }}"/>
+				<input type="date" class="col-md-4 form-control" name="birthday" value="{{ $updatedRequest->birthday }}"/>
+				<input type="text" class="col-md-4 form-control offset-md-2" placeholder="Ex:A123456789" name="identity_card_number" value="{{ $updatedRequest->identity_card_number }}"/>
 			</div>
 			
 			<div class="row">
@@ -36,7 +36,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					@if (!isset($profile->sex))
+					@if (!isset($updatedRequest->sex))
 					<div class="form-check form-check-inline">
 					  	<input class="form-check-input" type="radio" name="sex" value="1" />
 					  	<label class="form-check-label" for="sex">男</label>
@@ -45,7 +45,7 @@
 					  	<input class="form-check-input" type="radio" name="sex" value="2" />
 					  	<label class="form-check-label" for="sex">女</label>
 					</div>
-					@elseif ($profile->sex == 1)
+					@elseif ($updatedRequest->sex == 1)
 					<div class="form-check form-check-inline">
 					  	<input class="form-check-input" type="radio" name="sex" value="1" checked />
 					  	<label class="form-check-label" for="sex">男</label>
@@ -60,13 +60,13 @@
 					  	<label class="form-check-label" for="sex">男</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="radio" name="sex" value="2" checked />
+					  <input class="form-check-input" type="radio" name="sex" value="2 /" checked>
 					  <label class="form-check-label" for="sex">女</label>
 					</div>
 					@endif
 				</div>
 				<div class="col-md-4 offset-md-2">
-					@if (!isset($profile->married))
+					@if (!isset($updatedRequest->married))
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="married" value="1" />
 						<label class="form-check-label" for="married">已婚</label>
@@ -75,7 +75,7 @@
 						<input class="form-check-input" type="radio" name="married" value="0" />
 						<label class="form-check-label" for="married">未婚</label>
 					</div>
-					@elseif ($profile->married == 1)
+					@elseif ($updatedRequest->married == 1)
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="married" value="1" checked />
 						<label class="form-check-label" for="married">已婚</label>
@@ -107,7 +107,7 @@
 				  <label class="custom-file-label" for="customFile">Choose file</label>
 				</div>
 
-				<input type="text" class="col-md-4 form-control offset-md-2" placeholder='Ex:name@example.com' name="email" value="{{ $profile->user->email }}" />
+				<input type="text" class="col-md-4 form-control offset-md-2" placeholder='Ex:name@example.com' name="email" value="{{ $updatedRequest->email }}" />
 			</div>
 
 			<div class="row">
@@ -115,16 +115,16 @@
 			    <label for="on_board" class="col-md-4 offset-md-2 col-form-label">On Board</label>
 			</div>
 			<div class="row">
-				<input type="text" class="col-md-4 form-control" placeholder="Ex:臺北市北投區" name="address" value="{{ $profile->address }}"/>
-				<input type="date" class="col-md-4 offset-md-2 form-control" name="on_board" value="{{ $profile->on_board }}"/>
+				<input type="text" class="col-md-4 form-control" placeholder="Ex:臺北市北投區" name="address" value="{{ $updatedRequest->address }}"/>
+				<input type="date" class="col-md-4 offset-md-2 form-control" name="on_board" value="{{ $updatedRequest->on_board }}"/>
 			</div>
 
 			<div class="row">
 				<label for="off_board" class="col-md-4 col-form-label">Off Board</label>
 			</div>
 			<div class="row">
-				<input type="date" class="col-md-4 form-control" name="off_board" value="{{ $profile->off_board }}"/>
-				<a href="{{ route('admin.show', $profile->id) }}" class="btn btn-outline-secondary col-md-1 offset-md-2">Cancel</a>
+				<input type="date" class="col-md-4 form-control" name="off_board" value="{{ $updatedRequest->off_board }}"/>
+				<a href="{{ route('admin.notification.show', $updatedRequest->id) }}" class="btn btn-outline-secondary col-md-1 offset-md-2">Cancel</a>
 				<button tpye="submit" class="btn btn-outline-primary col-md-1 offset-md-2">Submit</button>
 			</div>
 		</form>

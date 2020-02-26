@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
 @section('content')
 <div class="row">
@@ -9,7 +9,7 @@
 
 <div class="row">
 	<div class="offset-md-2 col-md-8">
-		<form action="{{ route('admin.update', $profile->id) }}" method="post" enctype="multipart/form-data" >
+		<form action="{{ route('user.update', $profile->id) }}" method="post" enctype="multipart/form-data" >
 			@csrf
 			<input name="_method" type="hidden" value="PUT">
 			<div class="row">
@@ -124,7 +124,7 @@
 			</div>
 			<div class="row">
 				<input type="date" class="col-md-4 form-control" name="off_board" value="{{ $profile->off_board }}"/>
-				<a href="{{ route('admin.show', $profile->id) }}" class="btn btn-outline-secondary col-md-1 offset-md-2">Cancel</a>
+				<a href="{{ route('user.show', $profile->id) }}" class="btn btn-outline-secondary col-md-1 offset-md-2">Cancel</a>
 				<button tpye="submit" class="btn btn-outline-primary col-md-1 offset-md-2">Submit</button>
 			</div>
 		</form>

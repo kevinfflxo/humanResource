@@ -1,8 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
 @section('content')
 <div class="row">
 	<div class="offset-md-2 col-md-8">
+		@if (isset($statusRequest))
+		<div class="gray-title">
+			Your updated request is being verified！
+		</div>
+			
+		@else
 		<div class="row">
 			<div class="col-md-7">
 				<dl class="row">
@@ -83,27 +89,16 @@
 						  	</dd>
 						</dl>
 						<hr>
-						<div class="row">
-							<div class="col-md-6">
-								<a href="{{ route('admin.edit', $profile->id) }}" class="btn btn-outline-primary btn-block">Edit</a>
-							</div>
-							<div class="col-md-6">
-								<form action="{{ route('admin.destroy', $profile->id) }}" method="post">
-									@csrf
-									<input name="_method" type="hidden" value="DELETE">
-									<input type="submit" class="btn btn-outline-danger btn-block" value="Delete" />
-								</form>
-							</div>
-						</div>
 						<div class="row" style="margin-top: 15px;">
 							<div class="col-md-12">
-								<a href="{{ route('admin.index') }}" class="btn btn-btn btn-outline-secondary btn-block"><< Show All Profiles</a>
+								<a href="{{ route('user.edit', $profile->id) }}" class="btn btn-outline-primary btn-block">Edit</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		@endif
 	</div>
 </div>
 @stop
