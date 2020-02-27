@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Profile;
-use App\Transaction;
+use App\Log;
 use App\Request as UpdatedRequest;
 use App\User;
 use Session;
@@ -75,8 +75,10 @@ class AdminPagesController extends Controller
         $image = $request->file('image');
         $filename = time().'.'.$image->extension();
         $location = storage_path('app/photos/'.$filename);
-            // width, height
         Image::make($image)->resize(300, 420)->save($location);
+        $location = storage_path('app/photos/origin-'.$filename);
+        Image::make($image)->save($location);
+
         $profile->image = $filename;
         $profile->email = $request->email;
         $profile->address = $request->address;
@@ -174,11 +176,14 @@ class AdminPagesController extends Controller
             $filename = time().'.'.$image->extension();
             $location = storage_path('app/photos/'.$filename);
             Image::make($image)->resize(300, 420)->save($location);
+            $location = storage_path('app/photos/origin-'.$filename);
+            Image::make($image)->save($location);
             // update the database
             $oldFilename = $profile->image;
             $profile->image = $filename; 
             // delete the old photo
             Storage::disk('photos')->delete($oldFilename);
+            Storage::disk('photos')->delete("origin-".$oldFilename);
         }
         
         $user->email = $request->email;
@@ -189,22 +194,25 @@ class AdminPagesController extends Controller
         $user->save();
         
         //trait 
-        $transaction = new Transaction;
-        $transaction->name = $profile->user->name;
-        $transaction->phone = $profile->phone;
-        $transaction->birthday = $profile->birthday;
-        $transaction->identity_card_number = $profile->identity_card_number;
-        $transaction->sex = $profile->sex;
-        $transaction->married = $profile->married;
-        $transaction->image = $profile->image;
-        $transaction->email = $profile->user->email;
-        $transaction->address = $profile->address;
-        $transaction->on_board = $profile->on_board;
-        $transaction->off_board = $profile->off_board;
-        $transaction->user_id = $profile->id;
-        $transaction->status_id = 2;
-        $transaction->admin_id = Auth::guard('admin')->user()->id;
-        $transaction->save();
+        $log = new Log;
+        $arr = [
+            'name' => $profile->user->name,
+            'phone' => $profile->phone,
+            'birthday' => $profile->birthday,
+            'identity_card_number' => $profile->identity_card_number,
+            'sex' => $profile->sex,
+            'married' => $profile->married,
+            'image' => $profile->image,
+            'email' => $profile->user->email,
+            'address' => $profile->address,
+            'on_board' => $profile->on_board,
+            'off_board' => $profile->off_board,
+            'user_id' => $profile->id,
+            'status' => 'update',
+            'admin_id' => Auth::guard('admin')->user()->id
+        ];
+        $log->json = json_encode($arr);
+        $log->save();
 
         Session::flash('success', "The user's profile has successfully been updated！");
         return redirect()->route("admin.show", $id);
@@ -226,22 +234,25 @@ class AdminPagesController extends Controller
 
         $profile = Profile::find($id);
         // trait
-        $transaction = new Transaction;
-        $transaction->user_id = $profile->id;
-        $transaction->name = $profile->user->name;
-        $transaction->image = $profile->image;
-        $transaction->email = $profile->user->email;
-        $transaction->sex = $profile->sex;
-        $transaction->identity_card_number = $profile->identity_card_number;
-        $transaction->phone = $profile->phone;
-        $transaction->address = $profile->address;
-        $transaction->married = $profile->married;
-        $transaction->birthday = $profile->birthday;
-        $transaction->on_board = $profile->on_board;
-        $transaction->off_board = $profile->off_board;
-        $transaction->status_id = 3;
-        $transaction->admin_id = Auth::guard('admin')->user()->id;
-        $transaction->save();
+        $log = new Log;
+        $arr = [
+            'name' => $profile->user->name,
+            'phone' => $profile->phone,
+            'birthday' => $profile->birthday,
+            'identity_card_number' => $profile->identity_card_number,
+            'sex' => $profile->sex,
+            'married' => $profile->married,
+            'image' => $profile->image,
+            'email' => $profile->user->email,
+            'address' => $profile->address,
+            'on_board' => $profile->on_board,
+            'off_board' => $profile->off_board,
+            'user_id' => $profile->id,
+            'status' => 'delete',
+            'admin_id' => Auth::guard('admin')->user()->id
+        ];
+        $log->json = json_encode($arr);
+        $log->save();
         // delete profile data
         $profile->delete();
         // delete user data

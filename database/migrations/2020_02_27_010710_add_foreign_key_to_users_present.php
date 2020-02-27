@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeyToTransactionsStatus extends Migration
+class AddForeignKeyToUsersPresent extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddForeignKeyToTransactionsStatus extends Migration
      */
     public function up()
     {
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->foreign('status_id')
-                  ->references('id')->on('status')
+        Schema::table('present', function (Blueprint $table) {
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
                   ->onDelete('restrict')
                   ->onUpdate('restrict');
         });
@@ -28,8 +28,8 @@ class AddForeignKeyToTransactionsStatus extends Migration
      */
     public function down()
     {
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->dropForeign(['status_id']);
+        Schema::table('present', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
         });
     }
 }

@@ -135,7 +135,9 @@ class PagesController extends Controller
             $image = $request->file('image');
             $filename = time().'.'.$image->extension();
             $location = storage_path('app/photos/'.$filename);
-            Image::make($image)->resize(300, 420)->save($location);
+            Image::make($image)->resize(300, 420)->save($location);    
+            $location = storage_path('app/photos/origin-'.$filename);
+            Image::make($image)->save($location);
             $userRequest->image = $filename;
         } else {
             $userRequest->image = $profile->image;

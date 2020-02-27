@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Session;
 use App\Profile;
-use App\Transaction;
+use App\Log;
 use Auth;
 
 class RegisterController extends Controller
@@ -91,13 +91,17 @@ class RegisterController extends Controller
         $profile->id = $user->id;
         $profile->save();
 
-        $transaction = new Transaction;
-        $transaction->user_id = $user->id;
-        $transaction->name = $user->name;
-        $transaction->email = $user->email;
-        $transaction->status_id = 1;
-        $transaction->admin_id = Auth::guard('admin')->user()->id;
-        $transaction->save();
+        // trait
+        $log = new Log;
+        $arr = [
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'status' => 'insert',
+            'admin_id' => Auth::guard('admin')->user()->id
+        ];
+        $log->json = json_encode($arr);
+        $log->save();
 
         Session::flash('success', 'The user have been added successfully！');
         return redirect()->route('admin.index');

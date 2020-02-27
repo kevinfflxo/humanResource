@@ -46,4 +46,14 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Request', 'id');
     }
+
+    public function present()
+    {
+        return $this->hasMany('App\Present');
+    }
+
+    public function present_token()
+    {
+        return $this->hasOne('App\Present_token', 'id');
+    }
 }
